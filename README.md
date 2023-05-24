@@ -73,7 +73,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ### Deploying the server
 
 The production version of this repo is hosted on
-[fly](https://chat-langchainjs.fly.dev/). To deploy your own server on Fly, you
+[fly](https://chat-your-docs.fly.dev/). To deploy your own server on Fly, you
 can use the provided `fly.toml` and `Dockerfile` as a starting point.
 
 ## Inspirations
