@@ -1,4 +1,4 @@
-import { OpenAI } from 'langchain/llms/openai';
+import { OpenAIChat } from 'langchain/llms/openai';
 import { LLMChain, ConversationalRetrievalQAChain, loadQAChain } from 'langchain/chains';
 import { FaissStore } from 'langchain/vectorstores/faiss';
 import { PromptTemplate } from 'langchain/prompts';
@@ -12,8 +12,10 @@ Follow Up Input: {question}
 Standalone question:`);
 
 const QA_PROMPT = PromptTemplate.fromTemplate(
-  `You are an AI executive assistant in charge for answering questions from business documents.
-  You are given the following extracted parts of long documenta and a question.
+  `You are an AI executive assistant responsible for answering questions about business documents.
+  You are given the following extracted parts of long documents and a question.
+  Your task is to answer as faithfully as you can. While answering think step-by step and justify your answer.
+  Provide a detailed answer so user don’t need to search outside to understand the answer.
   You should only use hyperlinks that are explicitly listed as a source in the context. Do NOT make up a hyperlink that is not listed.
   If you don't know the answer, just say "Hmm, I'm not sure." Don't try to make up an answer.
 Question: {question}
@@ -25,13 +27,23 @@ Answer in Markdown:`
 
 export const makeChain = (vectorstore: FaissStore, onTokenStream?: (token: string) => void) => {
   const questionGenerator = new LLMChain({
-    llm: new OpenAI({ temperature: 0, maxTokens: 1000 }),
+    llm: new OpenAIChat({ 
+      temperature: 0,
+      azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY,
+      azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_API_INSTANCE_NAME,
+      azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME,
+      azureOpenAIApiVersion: process.env.AZURE_OPENAI_API_VERSION,
+      maxTokens: 2048 }),
     prompt: CONDENSE_PROMPT,
   });
 
-  const model = new OpenAI({
+  const model = new OpenAIChat({
     temperature: 0,
-    maxTokens: 1000,
+    azureOpenAIApiKey: process.env.AZURE_OPENAI_API_KEY,
+    azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_API_INSTANCE_NAME,
+    azureOpenAIApiDeploymentName: process.env.AZURE_OPENAI_API_DEPLOYMENT_NAME,
+    azureOpenAIApiVersion: process.env.AZURE_OPENAI_API_VERSION,
+    maxTokens: 2048,
     streaming: Boolean(onTokenStream),
     callbacks: [
       {
