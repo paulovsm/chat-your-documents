@@ -2,6 +2,14 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
 
+if (!process.env.SUPABASE_URL) {
+  throw new Error('Missing environment variable SUPABASE_URL');
+}
+
+if (!process.env.SUPABASE_KEY) {
+  throw new Error('Missing environment variable SUPABASE_KEY');
+}
+
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 
