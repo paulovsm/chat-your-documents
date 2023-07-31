@@ -13,7 +13,7 @@ type Message = {
   isStreaming?: boolean;
 }
 
-export default function Home() {
+export default function Home({ isAuthenticated, setIsAuthenticated }) {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messageState, setMessageState] = useState<{ messages: Message[], pending?: string, history: [string, string][] }>({
