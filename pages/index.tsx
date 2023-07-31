@@ -6,6 +6,7 @@ import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import CircularProgress from '@mui/material/CircularProgress';
 import { fetchEventSource } from '@microsoft/fetch-event-source';
+import { useRouter } from 'next/router';
 
 type Message = {
   type: "apiMessage" | "userMessage";
@@ -13,7 +14,8 @@ type Message = {
   isStreaming?: boolean;
 }
 
-export default function Home({ isAuthenticated, setIsAuthenticated }) {
+export default function Home({ isAuthenticated }) {
+  const router = useRouter();
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messageState, setMessageState] = useState<{ messages: Message[], pending?: string, history: [string, string][] }>({

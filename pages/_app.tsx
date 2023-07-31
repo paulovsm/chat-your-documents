@@ -10,16 +10,22 @@ export default function App({ Component, pageProps }: AppProps) {
     }
     return false;
   });
+
   let router;
   if (typeof window !== 'undefined') {
     router = useRouter();
   }
 
+  console.log(router, isAuthenticated);
+
   if (router && !isAuthenticated && router.pathname !== '/auth') {
     console.log('Redirecting to /auth');
-    router.push('/auth');
+    router.replace('/auth');
     return null;
+    
+  } else {
+    console.log('Rendering app');
+    return <Component {...pageProps} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
   }
 
-  return <Component {...pageProps} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
 }
