@@ -24,10 +24,10 @@ export default function Auth() {
 
     if (data.length > 0) {
       // The email is in the whitelist.
-      // Here you can set the authentication state.
+      setAuthenticated(true);
     } else {
       // The email is not in the whitelist.
-      // Show an error message.
+      alert("The email is not in the whitelist.");
     }
   };
 
