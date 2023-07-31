@@ -6,6 +6,8 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+const router = useRouter();
+
 export default function Auth() {
   const [email, setEmail] = useState('');
 
