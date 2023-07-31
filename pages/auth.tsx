@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://your-supabase-url';
-const supabaseKey = 'your-supabase-key';
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function Auth() {
   const [email, setEmail] = useState('');
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const { data, error } = await supabase
       .from('whitelisted_emails')
       .select('email')
-      .eq('email', email);
+      .eq('email', email)
+      .is('enabled', true);
 
     if (error) {
       console.error(error);
