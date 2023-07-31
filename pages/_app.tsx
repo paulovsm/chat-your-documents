@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('isAuthenticated') === 'true';
+  });
   const router = useRouter();
 
   if (!isAuthenticated && router.pathname !== '/auth') {

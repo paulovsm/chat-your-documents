@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { useRouter } from 'next/router';
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
@@ -24,7 +25,8 @@ export default function Auth() {
 
     if (data.length > 0) {
       // The email is in the whitelist.
-      setAuthenticated(true);
+      localStorage.setItem('isAuthenticated', 'true');
+      router.push('/');
     } else {
       // The email is not in the whitelist.
       alert("The email is not in the whitelist.");
