@@ -6,13 +6,13 @@ import styles from '../styles/auth.module.css';
 export default function Auth() {
   const router = useRouter();
   const [email, setEmail] = useState('');
-  const supabaseUrl = process.env.SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_KEY;
-
-  const supabase = createClient(supabaseUrl, supabaseKey);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY ?? '';
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     const { data, error } = await supabase
       .from('whitelisted_emails')
@@ -31,7 +31,7 @@ export default function Auth() {
       router.push('/');
     } else {
       // The email is not in the whitelist.
-      alert("The email is not in the whitelist.");
+      alert("Sorry, you're not allowed to access this page.");
     }
   };
 
