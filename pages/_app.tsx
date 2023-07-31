@@ -5,7 +5,10 @@ import { useRouter } from 'next/router';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('isAuthenticated') === 'true';
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('isAuthenticated') === 'true';
+    }
+    return false;
   });
   const router = useRouter();
 
