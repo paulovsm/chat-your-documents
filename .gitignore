@@ -43,3 +43,4 @@ langchain.readthedocs.io/
 source_documents/
 db/
 data/
+.aider*
