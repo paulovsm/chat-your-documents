@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
     return null;
   } 
 
-  if (router && isAuthenticated || router.pathname === '/auth') {
+  if (router && isAuthenticated || router!.pathname === '/auth') {
     console.log('Rendering app');
     return <Component {...pageProps} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
   }
