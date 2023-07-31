@@ -1,14 +1,15 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
+import { HNSWLib } from 'langchain/vectorstores/hnswlib'; 
 import { FaissStore } from 'langchain/vectorstores/faiss';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 import { makeChain } from './util';
-import { send } from 'process';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const body = req.body;
-  const dir = path.resolve(process.cwd(), 'db/faiss_index');
+  const dir = path.resolve(process.cwd(), 'data');
+  //const dir = path.resolve(process.cwd(), 'db/faiss_index');
   let chainResponse: any = {};
 
   const embeddings = new OpenAIEmbeddings({
@@ -18,7 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     azureOpenAIApiVersion: process.env.AZURE_OPENAI_API_VERSION
   });
 
-  const vectorstore = await FaissStore.loadFromPython(dir, embeddings);
+  //const vectorstore = await FaissStore.loadFromPython(dir, embeddings);
+  const vectorstore = await HNSWLib.load(dir, embeddings);
+  
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     // Important to set no-transform to avoid compression, which will delay
@@ -34,19 +37,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       let sourceDocumentsSet = new Set();
       for (let doc of chainResponse.sourceDocuments) {
         // Get the source document and remove the trailing '../source_documents/'
-        const sourceDoc = doc["metadata"]["source"].replace('../source_documents/', '');
-        if (!sourceDocumentsSet.has(sourceDoc)) {
-          sourceDocumentsSet.add(sourceDoc);
-          sourceDocumentsList.push({ doc: sourceDoc });
-        } else {
-          continue;
+        if (doc["metadata"]["source"]) {
+          const sourceDoc = doc["metadata"]["source"].replace('source_documents/', '');
+          if (!sourceDocumentsSet.has(sourceDoc)) {
+            sourceDocumentsSet.add(sourceDoc);
+            sourceDocumentsList.push({ doc: sourceDoc });
+          } else {
+            continue;
+          }
         }
       }
       let finalData = '[DONE]';
       let docData = "Source Documents: ";
+      let hasDocData = false;
 
       sourceDocumentsList.forEach(item => {
         docData = docData + "1. " + item.doc + " ";
+        hasDocData = true;
       });
 
       finalData = finalData + docData;

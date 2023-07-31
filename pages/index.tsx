@@ -139,7 +139,7 @@ export default function Home() {
               let className;
 
               if (message.type === "apiMessage") {
-                icon = <Image src="/parroticon.png" alt="AI" width="30" height="30" className={styles.boticon} priority />;
+                icon = <Image src="/robot.png" alt="AI" width="30" height="30" className={styles.boticon} priority />;
                 className = styles.apimessage;
               } else {
                 icon = <Image src="/usericon.png" alt="Me" width="30" height="30" className={styles.usericon} priority />
