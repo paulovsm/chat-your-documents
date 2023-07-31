@@ -6,7 +6,10 @@ import { useRouter } from 'next/router';
 export default function App({ Component, pageProps }: AppProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('isAuthenticated') === 'true';
+      const authenticated = localStorage.getItem('isAuthenticated') === 'true';
+      console.log('Checking if user is authenticated:' + authenticated);
+
+      return authenticated;
     }
     return false;
   });
@@ -16,16 +19,16 @@ export default function App({ Component, pageProps }: AppProps) {
     router = useRouter();
   }
 
-  console.log(router, isAuthenticated);
+  //console.log(router, isAuthenticated);
 
   if (router && !isAuthenticated && router?.pathname !== '/auth') {
-    console.log('Redirecting to /auth');
+    //console.log('Redirecting to /auth');
     router.replace('/auth');
     return null;
   } 
 
   if (router && (isAuthenticated || router?.pathname === '/auth')) {
-    console.log('Rendering app');
+    //console.log('Rendering app');
     return <Component {...pageProps} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
   }
 
