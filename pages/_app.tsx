@@ -18,13 +18,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
   console.log(router, isAuthenticated);
 
-  if (router && !isAuthenticated && router.pathname !== '/auth') {
+  if (router && !isAuthenticated && router?.pathname !== '/auth') {
     console.log('Redirecting to /auth');
     router.replace('/auth');
     return null;
   } 
 
-  if (router && isAuthenticated || router!.pathname === '/auth') {
+  if (router && (isAuthenticated || router?.pathname === '/auth')) {
     console.log('Rendering app');
     return <Component {...pageProps} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
   }
