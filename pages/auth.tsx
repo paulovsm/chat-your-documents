@@ -1,25 +1,15 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { useRouter } from 'next/router';
-
-if (!process.env.SUPABASE_URL) {
-  throw new Error('Missing environment variable SUPABASE_URL');
-}
-
-if (!process.env.SUPABASE_KEY) {
-  throw new Error('Missing environment variable SUPABASE_KEY');
-}
-
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
-
-const supabase = createClient(supabaseUrl, supabaseKey);
-
 import styles from '../styles/auth.module.css';
 
 export default function Auth() {
   const router = useRouter();
   const [email, setEmail] = useState('');
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_KEY;
+
+  const supabase = createClient(supabaseUrl, supabaseKey);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
