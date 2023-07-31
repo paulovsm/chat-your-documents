@@ -6,6 +6,8 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+import styles from '../styles/auth.module.css';
+
 export default function Auth() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -35,12 +37,12 @@ export default function Auth() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <label>
         Email:
-        <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+        <input type="email" value={email} onChange={e => setEmail(e.target.value)} className={styles.input} />
       </label>
-      <button type="submit">Submit</button>
+      <button type="submit" className={styles.button}>Submit</button>
     </form>
   );
 }
