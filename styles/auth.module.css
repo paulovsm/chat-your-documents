@@ -7,15 +7,15 @@
   padding: 1rem;
   border: 1px solid #30373d;
   border-radius: 0.5rem;
-  background: #070809;
+  background: #121212;
 }
 
 .authInput {
   padding: 0.5rem;
   border: 1px solid #30373d;
   border-radius: 0.25rem;
-  background: #070809;
-  color: #ECECF1;
+  background: #121212;
+  color: #ffffff;
   outline: none;
 }
 
@@ -26,4 +26,9 @@
   color: white;
   border-radius: 0.25rem;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &.is-hover {
+    background-color: #0060e0;
+  }
 }

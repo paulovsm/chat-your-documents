@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 import styles from '../styles/auth.module.css';
