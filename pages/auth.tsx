@@ -28,7 +28,7 @@ export default function Auth() {
     if (data.length > 0) {
       // The email is in the whitelist.
       localStorage.setItem('isAuthenticated', 'true');
-      router.push('/');
+      await router.push('/');
     } else {
       // The email is not in the whitelist.
       alert("Sorry, you're not allowed to access this page.");
