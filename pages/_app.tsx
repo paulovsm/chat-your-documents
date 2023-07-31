@@ -10,9 +10,12 @@ export default function App({ Component, pageProps }: AppProps) {
     }
     return false;
   });
-  const router = useRouter();
+  let router;
+  if (typeof window !== 'undefined') {
+    router = useRouter();
+  }
 
-  if (!isAuthenticated && router.pathname !== '/auth') {
+  if (router && !isAuthenticated && router.pathname !== '/auth') {
     router.push('/auth');
     return null;
   }
