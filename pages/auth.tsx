@@ -7,6 +7,13 @@ export default function Auth() {
   const router = useRouter();
   const [email, setEmail] = useState('');
 
+  // Check if the user is already authenticated.
+  useEffect(() => {
+    if (localStorage.getItem('isAuthenticated') === 'true') {
+      router.push('/');
+    }
+  }, []);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
