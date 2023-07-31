@@ -9,7 +9,7 @@ export default function Auth() {
 
   // Check if the user is already authenticated.
   useEffect(() => {
-    if (localStorage.getItem('isAuthenticated') === 'true') {
+    if (localStorage.getItem('isAuthenticated') === 'true' && router.pathname !== '/') {
       router.push('/');
     }
   }, []);
