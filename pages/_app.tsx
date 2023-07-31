@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }
 
   if (router && !isAuthenticated && router.pathname !== '/auth') {
+    console.log('Redirecting to /auth');
     router.push('/auth');
     return null;
   }
