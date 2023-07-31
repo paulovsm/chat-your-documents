@@ -22,10 +22,13 @@ export default function App({ Component, pageProps }: AppProps) {
     console.log('Redirecting to /auth');
     router.replace('/auth');
     return null;
-    
-  } else {
+  } 
+
+  if (router && isAuthenticated || router.pathname === '/auth') {
     console.log('Rendering app');
     return <Component {...pageProps} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
   }
+
+  return null;
 
 }
