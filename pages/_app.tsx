@@ -4,15 +4,15 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       const authenticated = localStorage.getItem('isAuthenticated') === 'true';
       console.log('Checking if user is authenticated:' + authenticated);
-
-      return authenticated;
+      setIsAuthenticated(authenticated);
     }
-    return false;
-  });
+  }, []);
 
   let router;
   if (typeof window !== 'undefined') {
