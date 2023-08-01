@@ -7,13 +7,13 @@ export default function Auth() {
   const router = useRouter();
   const [email, setEmail] = useState('');
 
-  // Check if the user is already authenticated.
-  useEffect(() => {
-    if (localStorage.getItem('isAuthenticated') === 'true' && router.pathname !== '/') {
-      //console.log('Redirecting to /');
-      router.push('/');
-    }
-  }, []);
+  // // Check if the user is already authenticated.
+  // useEffect(() => {
+  //   if (localStorage.getItem('isAuthenticated') === 'true' && router.pathname !== '/') {
+  //     //console.log('Redirecting to /');
+  //     window.location.href = '/';
+  //   }
+  // }, []);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,7 +36,7 @@ export default function Auth() {
     if (data.length > 0) {
       // The email is in the whitelist.
       localStorage.setItem('isAuthenticated', 'true');
-      await router.push('/');
+      router.push('/');
     } else {
       // The email is not in the whitelist.
       alert("Sorry, you're not allowed to access this page.");

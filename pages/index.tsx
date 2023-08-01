@@ -14,7 +14,7 @@ type Message = {
   isStreaming?: boolean;
 }
 
-export default function Home({ isAuthenticated }) {
+export default function Home() {
   const router = useRouter();
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -162,7 +162,7 @@ export default function Home({ isAuthenticated }) {
             })}
           </div>
         </div>
-        <div className={styles.center}>
+        <div className={styles.center} >
           <div className={styles.cloudform}>
             <form onSubmit={handleSubmit}>
               <textarea 
