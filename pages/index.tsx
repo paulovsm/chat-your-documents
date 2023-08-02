@@ -29,7 +29,6 @@ export default function Auth() {
       })
       .then(() => {
         router.push('/chat');
-        // router.push('/auth-page-ssr');
       })
       .catch((err) => {
         console.log(err);

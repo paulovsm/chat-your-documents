@@ -83,6 +83,7 @@ function Home() {
         console.log(event.data);
         if (event.data.indexOf("[DONE]") === 0) {
           let data = event.data.replace("[DONE]", "\n\n");
+          data = data.replaceAll("Source Documents: ", "\n- Source Documents: ");
           data = data.replaceAll("1.", "\n1.");
 
           setMessageState(state => ({
