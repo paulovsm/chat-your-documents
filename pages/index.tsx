@@ -12,6 +12,7 @@ export default function Auth() {
   const [loginMessage, setLoginMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const session = useSession();
+  const appTitle = process.env.NEXT_PUBLIC_APP_NAME;
 
   useEffect(() => {
     if (session.data.session) {
@@ -43,14 +44,14 @@ export default function Auth() {
     <>
       <div className={styles.topnav}>
         <div className={styles.navlogo}>
-          <Link href="/">Chat with Documents</Link>
+          <Link href="/">{appTitle}</Link>
         </div>
       </div>
-      <main className={styles.main}>
+      <main className={styles.mainlogin}>
         <div className={styles.cloudlogin}>
           <div className={styles.messagelist}>
             <div className={styles.titlelogin}>
-              Sign In to Chat with Documents
+              Sign In to {appTitle}
             </div>
             <div className={styles.centerlogin} >
               <div className={styles.appdescription}>

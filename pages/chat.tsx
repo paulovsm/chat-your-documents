@@ -32,6 +32,8 @@ function Home() {
   const messageListRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
+  const appTitle = process.env.NEXT_PUBLIC_APP_NAME;
+
   // Auto scroll chat to bottom
   useEffect(() => {
     const messageList = messageListRef.current;
@@ -126,14 +128,14 @@ function Home() {
   return (
     <>
       <Head>
-        <title>Chat with your Documents</title>
+        <title>{appTitle}</title>
         <meta name="description" content="Chat with you knowledge base" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.topnav}>
         <div className = {styles.navlogo}>
-          <Link href="/">Chat with Documents</Link>
+          <Link href="/">{appTitle}</Link>
         </div>
       </div>
       <main className={styles.main}>
