@@ -2,7 +2,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import { HNSWLib } from 'langchain/vectorstores/hnswlib'; 
-import { FaissStore } from 'langchain/vectorstores/faiss';
 import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 import { makeChain } from './util';
 

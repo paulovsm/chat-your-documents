@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Server as HttpServer } from "http";
 import type { Server as HttpsServer } from "https";
 import { WebSocketServer } from 'ws';
-import { FaissStore } from "langchain/vectorstores/faiss";
+import { HNSWLib } from 'langchain/vectorstores/hnswlib'; 
 import { OpenAIEmbeddings } from 'langchain/embeddings';
 import { makeChain } from "./util";
 import path from 'path';
@@ -37,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       sendResponse({ sender: 'bot', message: token, type: 'stream' });
     }
 
-    const chainPromise = FaissStore.loadFromPython(dir, new OpenAIEmbeddings()).then((vs) => makeChain(vs, onNewToken));
+    const chainPromise = HNSWLib.load(dir, new OpenAIEmbeddings()).then((vs) => makeChain(vs, onNewToken));
     const chatHistory: [string, string][] = [];
     const encoder = new TextEncoder();
 
