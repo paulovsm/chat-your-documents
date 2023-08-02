@@ -72,6 +72,19 @@
   outline: none;
 }
 
+.textinput {
+  position: relative;
+  resize: none;
+  font-size: 1.1rem;
+  padding: 1rem 2rem 1rem 2rem;
+  width: 25vw;
+  border-radius: 0.5rem;
+  border: 1px solid #30373d;
+  background: #070809;
+  color: #ECECF1;
+  outline: none;
+}
+
 .textarea:disabled {
   opacity: 0.5;
 }
@@ -91,6 +104,25 @@
   display: flex;
 }
 
+.loginbutton {
+  position: relative;
+  margin-top: 10px;
+  color: rgb(165, 162, 162);
+  background: darkgray;
+  padding: 0.3rem;
+  border: 1px solid #30373d;
+  display: flex;
+  border-radius: 5px;
+  height: 2.5rem;
+  width: 25vw;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  /* button background color */
+  background: #2c2d2e;
+
+}
+
 .loadingwheel {
   position: absolute;
   top: 0.2rem;
@@ -105,6 +137,17 @@
 }
 
 .generatebutton:hover {
+  background: #1f2227;
+  border-radius: 0.2rem;
+}
+
+.loginbutton:disabled {
+  opacity: 0.9;
+  cursor: not-allowed;
+  background: none;
+}
+
+.loginbutton:hover {
   background: #1f2227;
   border-radius: 0.2rem;
 }
@@ -135,6 +178,12 @@
   color: #ECECF1;
 }
 
+.errormessage {
+  background: #070809;
+  padding: 1.5rem;
+  color:darkred;
+}
+
 .usermessagewaiting{
   padding: 1.5rem;
   color: #ECECF1;
@@ -162,12 +211,20 @@
   animation: fadein 0.5s;
 }
 
+.titlelogin {
+  background: #141619;
+  padding: 1.5rem;
+  color: #ECECF1;
+  animation: fadein 0.5s;
+  justify-content: center;
+}
+
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
 
-.apimessage, .usermessage, .usermessagewaiting {
+.apimessage, .usermessage, .usermessagewaiting, .titlelogin {
   display: flex;
 }
 
@@ -213,8 +270,28 @@
   flex-direction: column;
 }
 
+.centerlogin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 4rem 0;
+  flex-direction: column;
+}
+
 .cloud {
   width: 75vw;
+  height: 65vh;
+  background: #070809;
+  border-radius: 0.5rem;
+  border: 1px solid #30373d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cloudlogin {
+  width: 34vw;
   height: 65vh;
   background: #070809;
   border-radius: 0.5rem;
