@@ -20,7 +20,7 @@ export default function Auth() {
     }
   }, [session.data.session]);
 
-  async function handleLogin(event) {
+  async function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
 
