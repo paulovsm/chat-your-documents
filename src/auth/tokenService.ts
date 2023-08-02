@@ -12,7 +12,7 @@ const ONE_DAY = ONE_HOUR * 24;
 const ONE_YEAR = ONE_DAY * 365;
 
 export const tokenService = {
-    async save(userId, ctx = null) {
+    async save(userId: number, ctx = null) {
         const accessToken = await this.generateAccessToken(userId);
 
         nookies.set(ctx, ACCESS_TOKEN_KEY, accessToken, {
@@ -27,14 +27,14 @@ export const tokenService = {
     delete(ctx = null) {
         nookies.destroy(ctx, ACCESS_TOKEN_KEY);
     },
-    async generateAccessToken(userId) {
+    async generateAccessToken(userId: number) {
         return await jwt.sign(
             { roles: ['user'] },
             ACCESSTOKEN_SECRET,
             { subject: String(userId), expiresIn: ACCESSTOKEN_EXPIRATION }
         );
     },
-    async decodeToken(token) {
+    async decodeToken(token: string) {
         return await jwt.decode(token);
     }
 }

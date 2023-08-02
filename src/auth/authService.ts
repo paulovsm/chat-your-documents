@@ -1,9 +1,11 @@
 import { Console } from 'console';
 import { supabase } from '../infra/supabaseClient';
 import { tokenService } from './tokenService';
+import { UserSession } from './session';
+import { JwtPayload } from 'jsonwebtoken';
 
 export const authService = {
-    async login({ username }) {
+    async login({ username } : { username: string }) {
         const { data, error } = await supabase
             .from('whitelisted_emails')
             .select('id')
@@ -15,14 +17,18 @@ export const authService = {
 
         await tokenService.save(data[0].id);
     },
-    async getSession(ctx = null) {
+    async getSession(ctx = null): Promise<UserSession> {
         const token = tokenService.get(ctx);
-        const decodedToken = await tokenService.decodeToken(token);
+        const decodedToken: JwtPayload = await tokenService.decodeToken(token) as JwtPayload;
+
+        if (!decodedToken) {
+            throw new Error('Invalid or Unauthorized user!');
+        }
 
         const { data, error } = await supabase
             .from('whitelisted_emails')
             .select('*')
-            .eq('id', decodedToken.sub)
+            .eq('id', decodedToken!.sub)
             .is('enabled', true);
 
 
@@ -36,8 +42,8 @@ export const authService = {
                     email: data[0].email,
                     fullname: data[0].fullname,
                 },
-                id: decodedToken.sub,
-                roles: decodedToken.roles,
+                id: String(decodedToken!.sub),
+                roles: decodedToken!.roles,
             }
         };
 
