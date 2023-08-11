@@ -2,7 +2,7 @@ import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 
 const ACCESS_TOKEN_KEY = 'ACCESS_TOKEN_KEY';
-const ACCESSTOKEN_SECRET = process.env.NEXT_PUBLIC_ACCESSTOKEN_SECRET;
+const ACCESSTOKEN_SECRET = process.env.NEXT_PUBLIC_ACCESSTOKEN_SECRET!;
 const ACCESSTOKEN_EXPIRATION = '1h';
 
 const ONE_SECOND = 1;
