@@ -8,7 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { fetchEventSource } from '@microsoft/fetch-event-source';
 import { useRouter } from 'next/router';
 import { withSessionHOC } from '@/src/auth/session';
-
+import { authService } from '../src/auth/authService';
 
 type Message = {
   type: "apiMessage" | "userMessage";
@@ -18,13 +18,11 @@ type Message = {
 
 function Home() {
   const router = useRouter();
+  const userSession = authService.getSession();
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messageState, setMessageState] = useState<{ messages: Message[], pending?: string, history: [string, string][] }>({
-    messages: [{
-      "message": "Hi! How can I help you?",
-      "type": "apiMessage"
-    }],
+    messages: [],
     history: []
   });
   const { messages, pending, history } = messageState;
@@ -45,6 +43,16 @@ function Home() {
   // Focus on text field on load
   useEffect(() => {
     textAreaRef.current?.focus();
+    userSession.then((userSession) => {
+      const user = userSession.data.user;
+      setMessageState(state => ({
+        ...state,
+        messages: [{
+          "message": `Hi ${user.fullname}! How can I help you?`,
+          "type": "apiMessage"
+        }]
+      }));
+    });
   }, []);
 
   // Handle form submission
